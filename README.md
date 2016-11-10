@@ -76,7 +76,7 @@ IAM Role Policy for AWS Lambda
 12. Upload the ebs-snapshot.zip you created in Step 13
 13. Handler: ebs-snapshot.main
 14. Role: Choose an existing role, then find the role you created in IAM Setup section
-15. Memory: 128 MB and Timeout: 1 min
+15. Memory: 128 MB and Timeout: 5 mins
 16. Click Next > Create function
 
 # How to use this Lambda function with CloudWatch Events (daily snapshots)?
