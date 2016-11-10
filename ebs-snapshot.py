@@ -217,7 +217,6 @@ def main(event, context):
     Main function that will invoke other functions
     '''
     aws_regions = describe_regions()
-    aws_regions = 'ap-southeast-2'
     create_snapshots(aws_regions)
     delete_snapshots(aws_regions)
     notify()
