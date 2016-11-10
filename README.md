@@ -52,9 +52,9 @@ IAM Role Policy for AWS Lambda
 
 ### Lambda Setup
 
-12. Clone or download the code as zip
-13. Change directory to `ebs-snapshot-python`
-14. Open and edit `user_vars.py`
+1. Clone or download the code as zip
+2. Change directory to `ebs-snapshot-python`
+3. Open and edit `user_vars.py`
 
     ```python
     # Modify me
@@ -65,19 +65,19 @@ IAM Role Policy for AWS Lambda
     # mail_to = ['admin@company.com', 'user@company.com']  # multiple recipients
     ```
 
-15. Then save and exit from the editor
-16. Compress `ebs-snapshot.py` and `user-vars.py` into one zip file (ebs-snashot.zip)
-17. AWS Management Console > Lambda
-18. Create a Lambda function > Blank function
-19. Skip Configure triggers by clicking Next button
-20. Give your function a name and description
-21. Choose Python 2.7 as Runtime
-22. Code entry type: Upload a .ZIP file, then click Upload
-23. Upload the ebs-snapshot.zip you created in Step 13
-24. Handler: ebs-snapshot.main
-25. Role: Choose an existing role, then find the role you created in IAM Setup section
-26. Memory: 128 MB and Timeout: 1 min
-27. Click Next > Create function
+4. Then save and exit from the editor
+5. Compress `ebs-snapshot.py` and `user-vars.py` into one zip file (ebs-snashot.zip)
+6. AWS Management Console > Lambda
+7. Create a Lambda function > Blank function
+8. Skip Configure triggers by clicking Next button
+9. Give your function a name and description
+10. Choose Python 2.7 as Runtime
+11. Code entry type: Upload a .ZIP file, then click Upload
+12. Upload the ebs-snapshot.zip you created in Step 13
+13. Handler: ebs-snapshot.main
+14. Role: Choose an existing role, then find the role you created in IAM Setup section
+15. Memory: 128 MB and Timeout: 1 min
+16. Click Next > Create function
 
 # How to use this Lambda function with CloudWatch Events (daily snapshots)?
 
