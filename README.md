@@ -4,7 +4,22 @@
 [![forthebadge](http://forthebadge.com/images/badges/powered-by-oxygen.svg)](http://forthebadge.com)
 [![forthebadge](http://forthebadge.com/images/badges/fuck-it-ship-it.svg)](http://forthebadge.com)
 
-This is the Python version of [ebs-snapshot](https://github.com/jpdoria/ebs-snapshot).
+This is the Python version of [ebs-snapshot](https://github.com/jpdoria/ebs-snapshot). This function can be deployed to AWS Lambda.
+
+# What is AWS Lambda?
+
+AWS Lambda lets you run code without provisioning or managing servers. You pay only for the compute time you consume - there is no charge when your code is not running. With Lambda, you can run code for virtually any type of application or backend service - all with zero administration. Just upload your code and Lambda takes care of everything required to run and scale your code with high availability. You can set up your code to automatically trigger from other AWS services or call it directly from any web or mobile app
+
+## Lambda Pricing
+
+With AWS Lambda, you pay only for what you use. You are charged based on the number of requests for your functions and the time your code executes. The Lambda free tier includes 1M free requests per month and 400,000 GB-seconds of compute time per month.
+
+- First 1 million requests per month are free
+- $0.20 per 1 million requests thereafter ($0.0000002 per request)
+
+## FAQs 
+
+https://aws.amazon.com/lambda/faqs/
 
 # Prerequisite
 
@@ -50,7 +65,7 @@ IAM Role Policy for AWS Lambda
 
 11. Validate Policy > Apply Policy
 
-### Lambda Setup
+## Lambda Setup
 
 1. Clone or download the code as zip
 2. Change directory to `ebs-snapshot-python`
