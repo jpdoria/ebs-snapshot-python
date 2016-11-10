@@ -87,10 +87,7 @@ def delete_snapshots(aws_regions):
                 ]
             )
 
-            logger.info(
-                'Checking old snapshot(s) for EBS volume(s) in {}...'
-                .format(region)
-            )
+            logger.info('Fetching snapshot(s) in {}...'.format(region))
 
             for key in response['Snapshots']:
                 pattern = '%Y-%m-%d %H:%M:%S.%f'
@@ -122,13 +119,11 @@ def delete_snapshots(aws_regions):
 
                     logger.info('{} removed!'.format(snap_id))
 
-            logger.info(
-                'Finished checking snapshot(s) for EBS volume(s) in {}!'
-                .format(region)
-            )
+            logger.info('Task completed in {}!'.format(region))
 
         if snapshots:
             logger.info('Snapshot(s): {}'.format(snapshots))
+
         logger.info(
             'Total number of snapshot(s) deleted: {}'.format(len(snapshots))
         )
@@ -144,13 +139,11 @@ def create_snapshots(aws_regions):
         snapshots = []
 
         for region in aws_regions:
+            snaps_region = []
             ec2 = boto3.client('ec2', region_name=region)
             response = ec2.describe_volumes()
 
-            logger.info(
-                'Creating snapshot(s) for EBS volume(s) in {}...'
-                .format(region)
-            )
+            logger.info('Fetching EBS volume(s) in {}...'.format(region))
 
             for key in response['Volumes']:
                 vol_id = key['VolumeId']
@@ -162,32 +155,32 @@ def create_snapshots(aws_regions):
                     Description=description
                 )
                 snap_id = create_snap_response['SnapshotId']
+                snaps_region.append(snap_id)
                 snapshots.append(snap_id)
 
                 logger.info('{} created!'.format(snap_id))
 
-            logger.info(
-                'Finished creating snapshot(s) for EBS volume(s) in {}!'
-                .format(region)
-            )
+            if snaps_region:
+                ec2.create_tags(
+                    Resources=snaps_region,
+                    Tags=[
+                        {
+                            'Key': 'Name',
+                            'Value': 'AWS EBS Snapshot'
+                        },
+                        {
+                            'Key': 'Expiration',
+                            'Value': 'This snapshot will expire in {} day(s)'
+                            .format(ret_period)
+                        }
+                    ]
+                )
 
-        ec2.create_tags(
-            Resources=snapshots,
-            Tags=[
-                {
-                    'Key': 'Name',
-                    'Value': 'AWS EBS Snapshot'
-                },
-                {
-                    'Key': 'Expiration',
-                    'Value': 'This snapshot will expire in {} day(s)'
-                    .format(ret_period)
-                }
-            ]
-        )
+            logger.info('Task completed in {}!'.format(region))
 
         if snapshots:
             logger.info('Snapshot(s): {}'.format(snapshots))
+
         logger.info(
             'Total number of snapshot(s) created: {}'.format(len(snapshots))
         )
