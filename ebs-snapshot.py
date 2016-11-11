@@ -28,9 +28,9 @@ logger.addHandler(fh)
 
 
 def notify():
-    '''
+    """
     Notify recipients
-    '''
+    """
     try:
         ses = boto3.client('ses')
         subject = '{0} {1}'.format(
@@ -68,9 +68,9 @@ def notify():
 
 
 def delete_snapshots(aws_regions):
-    '''
+    """
     Delete EBS Snapshots
-    '''
+    """
     try:
         snapshots = []
 
@@ -109,8 +109,8 @@ def delete_snapshots(aws_regions):
                 logger.info('Difference: {} day(s)'.format(day_diff))
                 logger.info('RetentionPeriod: {} day(s)'.format(ret_period))
 
-                if day_diff > ret_period:
-                    logger.info('snap_date > ret_period')
+                if day_diff >= ret_period:
+                    logger.info('snap_date >= ret_period')
                     logger.info('Deleting {}...'.format(snap_id))
                     ec2.delete_snapshot(
                         SnapshotId=snap_id
@@ -132,9 +132,9 @@ def delete_snapshots(aws_regions):
 
 
 def create_snapshots(aws_regions):
-    '''
+    """
     Create EBS Snapshots
-    '''
+    """
     try:
         snapshots = []
 
@@ -189,9 +189,9 @@ def create_snapshots(aws_regions):
 
 
 def describe_regions():
-    '''
+    """
     List the available regions in AWS then add them to aws_regions list
-    '''
+    """
     try:
         ec2 = boto3.client('ec2')
         regions = ec2.describe_regions()['Regions']
@@ -200,15 +200,16 @@ def describe_regions():
         for region in regions:
             region_list.append((region['RegionName']))
 
-        return(region_list)
+        return region_list
     except Exception as e:
         logger.error(e, exc_info=True)
 
 
+# noinspection PyUnusedLocal,PyUnusedLocal
 def main(event, context):
-    '''
+    """
     Main function that will invoke other functions
-    '''
+    """
     aws_regions = describe_regions()
     create_snapshots(aws_regions)
     delete_snapshots(aws_regions)
